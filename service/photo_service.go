@@ -17,7 +17,6 @@ type photoService struct {
 	photoRepository repository.PhotoRepository
 }
 
-// Create implements PhotoService
 func (s *photoService) Create(payload entity.PhotoRequest, userId uint) (entity.Photo, error) {
 	photo := entity.Photo{
 		Title:    payload.Title,
@@ -34,12 +33,10 @@ func (s *photoService) Create(payload entity.PhotoRequest, userId uint) (entity.
 	return newPhoto, nil
 }
 
-// Delete implements PhotoService
 func (s *photoService) Delete(photo entity.Photo) {
 	s.photoRepository.Delete(photo.ID)
 }
 
-// GetAll implements PhotoService
 func (s *photoService) GetAll() ([]entity.Photo, error) {
 	photos, err := s.photoRepository.FindAll()
 	if err != nil {
@@ -49,7 +46,6 @@ func (s *photoService) GetAll() ([]entity.Photo, error) {
 	return photos, nil
 }
 
-// GetById implements PhotoService
 func (s *photoService) GetById(id uint) (entity.Photo, error) {
 	photo, err := s.photoRepository.FindById(id)
 	if err != nil {
@@ -59,14 +55,11 @@ func (s *photoService) GetById(id uint) (entity.Photo, error) {
 	return photo, nil
 }
 
-// Update implements PhotoService
 func (s *photoService) Update(payload entity.PhotoRequest, id uint, userId uint) (entity.Photo, error) {
 	photo, err := s.photoRepository.FindById(id)
 	if err != nil {
 		panic(err)
 	}
-
-	// var photo entity.Photo
 
 	photo.Title = payload.Title
 	photo.Caption = payload.Caption

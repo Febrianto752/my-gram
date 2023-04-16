@@ -21,7 +21,6 @@ type socialMediaRepository struct {
 	db *gorm.DB
 }
 
-// Create implements SocialMediaRepository
 func (r *socialMediaRepository) Create(socialMedia entity.SocialMedia) (entity.SocialMedia, error) {
 	err := r.db.Debug().Create(&socialMedia).Error
 	if err != nil {
@@ -31,7 +30,6 @@ func (r *socialMediaRepository) Create(socialMedia entity.SocialMedia) (entity.S
 	return socialMedia, nil
 }
 
-// Delete implements SocialMediaRepository
 func (r *socialMediaRepository) Delete(id uint) {
 	var socialMedia entity.SocialMedia
 
@@ -42,19 +40,16 @@ func (r *socialMediaRepository) Delete(id uint) {
 	}
 }
 
-// FindAll implements SocialMediaRepository
 func (r *socialMediaRepository) FindAll() ([]entity.SocialMedia, error) {
 	var socialMedias []entity.SocialMedia
 
 	err := r.db.Debug().Preload("User").Find(&socialMedias).Error
 	if err != nil {
-		// log.Fatal("error getting all social medias data: ", err)
 		return socialMedias, err
 	}
 	return socialMedias, nil
 }
 
-// FindById implements SocialMediaRepository
 func (r *socialMediaRepository) FindById(id uint) (entity.SocialMedia, error) {
 	var socialMedia entity.SocialMedia
 	err := r.db.Debug().Preload("User").First(&socialMedia, "id = ?", id).Error
@@ -68,7 +63,6 @@ func (r *socialMediaRepository) FindById(id uint) (entity.SocialMedia, error) {
 	return socialMedia, err
 }
 
-// Update implements SocialMediaRepository
 func (r *socialMediaRepository) Update(socialMedia entity.SocialMedia, id uint) (entity.SocialMedia, error) {
 
 	err := r.db.Debug().Model(&socialMedia).Where("id = ?", id).Updates(&socialMedia).Error

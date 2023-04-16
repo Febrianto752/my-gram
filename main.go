@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/Febrianto752/my-gram/config"
 	"github.com/Febrianto752/my-gram/handler"
@@ -14,8 +14,8 @@ import (
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		// log.Fatalf("gagal mengambil .env %v", err)
-		fmt.Println("error")
+		log.Fatalf("gagal mengambil .env %v", err)
+
 	}
 
 	db := config.InitializeDB()

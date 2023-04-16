@@ -18,7 +18,6 @@ type commentService struct {
 	photoRepository   repository.PhotoRepository
 }
 
-// Create implements CommentService
 func (s *commentService) Create(payload entity.CommentRequest, userId uint) (entity.Comment, error) {
 	err := s.photoRepository.IsPhotoExist(payload.PhotoId)
 
@@ -40,7 +39,6 @@ func (s *commentService) Create(payload entity.CommentRequest, userId uint) (ent
 	return newComment, nil
 }
 
-// Delete implements CommentService
 func (s *commentService) Delete(comment entity.Comment) (entity.Comment, error) {
 	comment, err := s.commentRepository.Delete(comment.ID)
 	if err != nil {
@@ -50,7 +48,6 @@ func (s *commentService) Delete(comment entity.Comment) (entity.Comment, error) 
 	return comment, nil
 }
 
-// GetAll implements CommentService
 func (s *commentService) GetAll() ([]entity.Comment, error) {
 	comments, err := s.commentRepository.FindAll()
 	if err != nil {
@@ -60,7 +57,6 @@ func (s *commentService) GetAll() ([]entity.Comment, error) {
 	return comments, nil
 }
 
-// GetById implements CommentService
 func (s *commentService) GetById(id uint) (entity.Comment, error) {
 	comment, err := s.commentRepository.FindById(id)
 	if err != nil {
@@ -70,7 +66,6 @@ func (s *commentService) GetById(id uint) (entity.Comment, error) {
 	return comment, nil
 }
 
-// Update implements CommentService
 func (s *commentService) Update(payload entity.CommentRequest, id uint, userId uint) (entity.Comment, error) {
 	comment, err := s.commentRepository.FindById(id)
 	if err != nil {

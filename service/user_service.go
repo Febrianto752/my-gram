@@ -17,7 +17,6 @@ type userService struct {
 	userRepository repository.UserRepository
 }
 
-// Login implements UserService
 func (s *userService) Login(payload entity.UserLogin) (entity.User, error) {
 	email := payload.Email
 	password := payload.Password
@@ -39,7 +38,6 @@ func (s *userService) Login(payload entity.UserLogin) (entity.User, error) {
 	return user, nil
 }
 
-// Register implements UserService
 func (s *userService) Register(payload entity.UserRequest) (entity.User, error) {
 
 	user := entity.User{

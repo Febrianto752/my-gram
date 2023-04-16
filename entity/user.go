@@ -18,7 +18,6 @@ type User struct {
 	UpdatedAt   *time.Time
 	SocialMedia *SocialMedia `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"-"`
 	Photos      []Photo      `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"-"`
-	// Comments    []Comment   `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
 
 type UserRequest struct {

@@ -23,7 +23,6 @@ type commentHandler struct {
 	commentService service.CommentService
 }
 
-// DeleteCommentHandler implements CommentHandler
 func (h *commentHandler) DeleteCommentHandler(ctx *gin.Context) {
 	var comment entity.Comment
 	requestParam := ctx.Param("id")
@@ -44,7 +43,6 @@ func (h *commentHandler) DeleteCommentHandler(ctx *gin.Context) {
 	})
 }
 
-// GetCommentHandler implements CommentHandler
 func (h *commentHandler) GetCommentHandler(ctx *gin.Context) {
 	requestParam := ctx.Param("id")
 	commentId, _ := strconv.Atoi(requestParam)
@@ -59,7 +57,6 @@ func (h *commentHandler) GetCommentHandler(ctx *gin.Context) {
 
 }
 
-// GetCommentsHandler implements CommentHandler
 func (h *commentHandler) GetCommentsHandler(ctx *gin.Context) {
 	comments, err := h.commentService.GetAll()
 	if err != nil {
@@ -91,7 +88,6 @@ func (h *commentHandler) PostCommentHandler(ctx *gin.Context) {
 	helper.SuccessResponse(ctx, http.StatusCreated, comment)
 }
 
-// PutCommentHandler implements CommentHandler
 func (h *commentHandler) PutCommentHandler(ctx *gin.Context) {
 	requestParam := ctx.Param("id")
 	commentId, _ := strconv.Atoi(requestParam)

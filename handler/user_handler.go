@@ -18,7 +18,6 @@ type userHandler struct {
 	userService service.UserService
 }
 
-// PostUserLoginHandler implements UserHandler
 func (h *userHandler) PostUserLoginHandler(ctx *gin.Context) {
 	var payload entity.UserLogin
 
@@ -40,7 +39,6 @@ func (h *userHandler) PostUserLoginHandler(ctx *gin.Context) {
 	})
 }
 
-// PostUserRegisterHandler implements UserHandler
 func (h *userHandler) PostUserRegisterHandler(ctx *gin.Context) {
 	var payload entity.UserRequest
 

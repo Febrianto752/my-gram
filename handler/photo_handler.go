@@ -23,7 +23,6 @@ type photoHandler struct {
 	photoService service.PhotoService
 }
 
-// DeletePhotoHandler implements PhotoHandler
 func (h *photoHandler) DeletePhotoHandler(ctx *gin.Context) {
 	var photo entity.Photo
 	requestParam := ctx.Param("id")
@@ -34,7 +33,6 @@ func (h *photoHandler) DeletePhotoHandler(ctx *gin.Context) {
 	helper.SuccessResponse(ctx, http.StatusOK, nil)
 }
 
-// GetPhotoHandler implements PhotoHandler
 func (h *photoHandler) GetPhotoHandler(ctx *gin.Context) {
 	requestParam := ctx.Param("id")
 	photoId, _ := strconv.Atoi(requestParam)
@@ -49,7 +47,6 @@ func (h *photoHandler) GetPhotoHandler(ctx *gin.Context) {
 
 }
 
-// GetPhotosHandler implements PhotoHandler
 func (h *photoHandler) GetPhotosHandler(ctx *gin.Context) {
 	photos, err := h.photoService.GetAll()
 	if err != nil {
@@ -82,7 +79,6 @@ func (h *photoHandler) PostPhotoHandler(ctx *gin.Context) {
 
 }
 
-// PutPhotoHandler implements PhotoHandler
 func (h *photoHandler) PutPhotoHandler(ctx *gin.Context) {
 	requestParam := ctx.Param("id")
 	photoId, _ := strconv.Atoi(requestParam)

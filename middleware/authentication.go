@@ -19,7 +19,7 @@ func Authentication() gin.HandlerFunc {
 			})
 			return
 		}
-		// menyimpan claim dari token
+
 		c.Set("userData", verifyToken)
 		c.Next()
 	}

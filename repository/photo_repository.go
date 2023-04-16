@@ -22,7 +22,6 @@ type photoRepository struct {
 	db *gorm.DB
 }
 
-// IsPhotoExist implements PhotoRepository
 func (r *photoRepository) IsPhotoExist(id uint) error {
 	var photo entity.Photo
 	err := r.db.Debug().First(&photo, "id = ?", id).Error
@@ -33,7 +32,6 @@ func (r *photoRepository) IsPhotoExist(id uint) error {
 	return nil
 }
 
-// Create implements PhotoRepository
 func (r *photoRepository) Create(photo entity.Photo) (entity.Photo, error) {
 	err := r.db.Debug().Create(&photo).Error
 	if err != nil {
@@ -43,7 +41,6 @@ func (r *photoRepository) Create(photo entity.Photo) (entity.Photo, error) {
 	return photo, nil
 }
 
-// Delete implements PhotoRepository
 func (r *photoRepository) Delete(id uint) {
 	var photo entity.Photo
 
@@ -54,7 +51,6 @@ func (r *photoRepository) Delete(id uint) {
 	}
 }
 
-// FindAll implements PhotoRepository
 func (r *photoRepository) FindAll() ([]entity.Photo, error) {
 	var photos []entity.Photo
 
@@ -65,7 +61,6 @@ func (r *photoRepository) FindAll() ([]entity.Photo, error) {
 	return photos, nil
 }
 
-// FindById implements PhotoRepository
 func (r *photoRepository) FindById(id uint) (entity.Photo, error) {
 	var photo entity.Photo
 	err := r.db.Debug().First(&photo, "id = ?", id).Error
@@ -79,7 +74,6 @@ func (r *photoRepository) FindById(id uint) (entity.Photo, error) {
 	return photo, err
 }
 
-// Update implements PhotoRepository
 func (r *photoRepository) Update(photo entity.Photo, id uint) (entity.Photo, error) {
 
 	err := r.db.Debug().Model(&photo).Where("id = ?", id).Updates(&photo).Error

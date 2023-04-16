@@ -17,7 +17,6 @@ type socialMediaService struct {
 	socialMediaRepository repository.SocialMediaRepository
 }
 
-// Create implements SocialMediaService
 func (s *socialMediaService) Create(payload entity.SocialMediaRequest, userId uint) (entity.SocialMedia, error) {
 	socialMedia := entity.SocialMedia{
 		Name:           payload.Name,
@@ -33,12 +32,10 @@ func (s *socialMediaService) Create(payload entity.SocialMediaRequest, userId ui
 	return newSocialMedia, nil
 }
 
-// Delete implements SocialMediaService
 func (s *socialMediaService) Delete(socialMedia entity.SocialMedia) {
 	s.socialMediaRepository.Delete(socialMedia.ID)
 }
 
-// GetAll implements SocialMediaService
 func (s *socialMediaService) GetAll() ([]entity.SocialMedia, error) {
 	socialMedias, err := s.socialMediaRepository.FindAll()
 	if err != nil {
@@ -48,7 +45,6 @@ func (s *socialMediaService) GetAll() ([]entity.SocialMedia, error) {
 	return socialMedias, nil
 }
 
-// GetById implements SocialMediaService
 func (s *socialMediaService) GetById(id uint) (entity.SocialMedia, error) {
 	socialMedia, err := s.socialMediaRepository.FindById(id)
 	if err != nil {
@@ -58,14 +54,11 @@ func (s *socialMediaService) GetById(id uint) (entity.SocialMedia, error) {
 	return socialMedia, nil
 }
 
-// Update implements SocialMediaService
 func (s *socialMediaService) Update(payload entity.SocialMediaRequest, id uint, userId uint) (entity.SocialMedia, error) {
 	socialMedia, err := s.socialMediaRepository.FindById(id)
 	if err != nil {
 		panic(err)
 	}
-
-	// var socialMedia entity.SocialMedia
 
 	socialMedia.Name = payload.Name
 	socialMedia.SocialMediaUrl = payload.SocialMediaUrl
