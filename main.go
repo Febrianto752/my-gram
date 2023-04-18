@@ -20,8 +20,8 @@ func main() {
 
 	db := config.InitializeDB()
 	userRepository := repository.NewUserRepository(db)
-	userUseCase := service.NewUserService(userRepository)
-	userHandler := handler.NewUserHandler(userUseCase)
+	userService := service.NewUserService(userRepository)
+	userHandler := handler.NewUserHandler(userService)
 
 	photoRepository := repository.NewPhotoRepository(db)
 	photoService := service.NewPhotoService(photoRepository)
