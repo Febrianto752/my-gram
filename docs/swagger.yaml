@@ -1,0 +1,1065 @@
+basePath: /
+definitions:
+  entity.Comment:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      photo_id:
+        type: integer
+      updatedAt:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  entity.CommentRequest:
+    properties:
+      message:
+        type: string
+      photo_id:
+        type: integer
+    type: object
+  entity.Photo:
+    properties:
+      caption:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      photo_url:
+        type: string
+      title:
+        type: string
+      updatedAt:
+        type: string
+      user:
+        $ref: '#/definitions/entity.User'
+      userId:
+        type: integer
+    type: object
+  entity.PhotoRequest:
+    properties:
+      caption:
+        type: string
+      photo_url:
+        type: string
+      title:
+        type: string
+    type: object
+  entity.SocialMedia:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      social_media_url:
+        type: string
+      updatedAt:
+        type: string
+      user:
+        $ref: '#/definitions/entity.User'
+      userId:
+        type: integer
+    type: object
+  entity.SocialMediaRequest:
+    properties:
+      name:
+        type: string
+      social_media_url:
+        type: string
+    type: object
+  entity.User:
+    properties:
+      age:
+        type: integer
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      updatedAt:
+        type: string
+      username:
+        type: string
+    type: object
+  entity.UserLogin:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  entity.UserRequest:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  helper.BadRequest:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+  helper.InternalServerError:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+  helper.SuccessResult:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: febrianto.bekasi@gmail.com
+    name: febrianto
+  description: Final Project Digitalent x Hactive8
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Mygram
+  version: "1.0"
+paths:
+  /comment:
+    get:
+      consumes:
+      - application/json
+      description: Get details of all comment
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.Comment'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Get all comment
+      tags:
+      - comment
+    post:
+      consumes:
+      - application/json
+      description: Create new comment
+      parameters:
+      - description: create comment
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/entity.CommentRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.Comment'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Create comment
+      tags:
+      - comment
+  /comment/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete the comment corresponding to the input Id
+      parameters:
+      - description: ID of the comment to be deleted
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.Comment'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Delete comment identified by the given id
+      tags:
+      - comment
+    get:
+      consumes:
+      - application/json
+      description: Get details of comment corresponding is the input Id
+      parameters:
+      - description: ID of the comment
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.Comment'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Get details for a given id
+      tags:
+      - comment
+    put:
+      consumes:
+      - application/json
+      description: Update the comment corresponding to the input id
+      parameters:
+      - description: create comment
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/entity.CommentRequest'
+      - description: ID of the comment
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.Comment'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Update comment identified by the given id
+      tags:
+      - comment
+  /photo:
+    get:
+      consumes:
+      - application/json
+      description: Get all photos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.Photo'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Get all photos
+      tags:
+      - photo
+    post:
+      consumes:
+      - application/json
+      description: Create new photo
+      parameters:
+      - description: create photo
+        in: body
+        name: photo
+        required: true
+        schema:
+          $ref: '#/definitions/entity.PhotoRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.Photo'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Create photo
+      tags:
+      - photo
+  /photo/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete the photo corresponding to the input Id
+      parameters:
+      - description: ID of the photo to be deleted
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.Photo'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Delete photo identified by the given id
+      tags:
+      - photo
+    get:
+      consumes:
+      - application/json
+      description: Get details of photo corresponding is the input Id
+      parameters:
+      - description: ID of the photo
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.Photo'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Get photo details for a given id
+      tags:
+      - photo
+    put:
+      consumes:
+      - application/json
+      description: Update the photo corresponding to the input id
+      parameters:
+      - description: create photo
+        in: body
+        name: photo
+        required: true
+        schema:
+          $ref: '#/definitions/entity.PhotoRequest'
+      - description: ID of the photo
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.Photo'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Update photo identified by the given id
+      tags:
+      - photo
+  /signin:
+    post:
+      consumes:
+      - application/json
+      description: User logs in
+      parameters:
+      - description: logged in
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UserLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  type: string
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      summary: User login
+      tags:
+      - user
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: User registers in the form provided
+      parameters:
+      - description: create account
+        in: body
+        name: register
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.User'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      summary: User register
+      tags:
+      - user
+  /socialmedia:
+    get:
+      consumes:
+      - application/json
+      description: Get all social medias
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.SocialMedia'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Get all social medias
+      tags:
+      - social media
+    post:
+      consumes:
+      - application/json
+      description: Create new social media
+      parameters:
+      - description: create social media
+        in: body
+        name: socialMedia
+        required: true
+        schema:
+          $ref: '#/definitions/entity.SocialMediaRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.SocialMedia'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Create social media
+      tags:
+      - social media
+  /socialmedia/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete the social media corresponding to the input Id
+      parameters:
+      - description: ID of the social media to be deleted
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.SocialMedia'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Delete social media identified by the given id
+      tags:
+      - social media
+    get:
+      consumes:
+      - application/json
+      description: Get details of social media corresponding is the input Id
+      parameters:
+      - description: ID of the social media
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.SocialMedia'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Get details for a given id
+      tags:
+      - social media
+    put:
+      consumes:
+      - application/json
+      description: Update the social media corresponding to the input id
+      parameters:
+      - description: ID of the social media
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: update social media
+        in: body
+        name: socialMedia
+        required: true
+        schema:
+          $ref: '#/definitions/entity.SocialMediaRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.SuccessResult'
+            - properties:
+                code:
+                  type: integer
+                data:
+                  $ref: '#/definitions/entity.SocialMedia'
+                message:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.BadRequest'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/helper.InternalServerError'
+            - properties:
+                code:
+                  type: integer
+                message:
+                  type: string
+              type: object
+      security:
+      - JWT: []
+      summary: Update social media identified by the given id
+      tags:
+      - social media
+schemes:
+- http
+securityDefinitions:
+  JWT:
+    description: 'How to input in swagger : ''Bearer <insert_your_token_here>'''
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

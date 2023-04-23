@@ -18,6 +18,18 @@ type userHandler struct {
 	userService service.UserService
 }
 
+// UserLogin godoc
+// @Summary User login
+// @Description User logs in
+// @Tags user
+// @Accept json
+// @Produce json
+// @Param login body entity.UserLogin true "logged in"
+// @Success 200 {object} helper.SuccessResult{data=string,code=int,message=string}
+// @Failure 400 {object} helper.BadRequest{code=int,message=string}
+// @Success 500 {object} helper.InternalServerError{code=int,message=string}
+// @Router /signin [post]
+// PostUserLoginHandler implements UserHandler
 func (h *userHandler) PostUserLoginHandler(ctx *gin.Context) {
 	var payload entity.UserLogin
 
@@ -39,6 +51,18 @@ func (h *userHandler) PostUserLoginHandler(ctx *gin.Context) {
 	})
 }
 
+// UserRegister godoc
+// @Summary User register
+// @Description User registers in the form provided
+// @Tags user
+// @Accept json
+// @Produce json
+// @Param register body entity.UserRequest true "create account"
+// @Success 201 {object} helper.SuccessResult{data=entity.User,code=int,message=string}
+// @Failure 400 {object} helper.BadRequest{code=int,message=string}
+// @Success 500 {object} helper.InternalServerError{code=int,message=string}
+// @Router /signup [post]
+// PostUserRegisterHandler implements UserHandler
 func (h *userHandler) PostUserRegisterHandler(ctx *gin.Context) {
 	var payload entity.UserRequest
 
